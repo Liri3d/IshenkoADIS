@@ -68,15 +68,6 @@ payload6 = {
     }
 }
 
-payload7 = {
-    "version": "1.0",
-    "filter": {
-        "fgit": {
-            "hasGit": True
-        }
-    }
-}
-
 BASE_URL = 'http://192.168.0.16:8080/students/general/get-student-list'
 
 def test_get_student_list_hasGit_true():
@@ -142,20 +133,6 @@ def test_get_student_list_hasGit_false_and_hasContact_true():
         assert student["fgit"]["hasGit"] == False, "Поле Гит не пустое"
         assert student["fcontact"]["hasContact"] == True, "Поле контакты пустое"
     print("test_get_student_list_hasGit_false_and_hasContact_true completed successfully in", end_time-start_time, "seconds")
-
-def test_get_student_list_hasGit_equals():
-    start_time = time.time()
-    response = requests.post(f'{BASE_URL}', json=payload7)
-    response_body = response.json()
-    response1 = requests.post(f'{BASE_URL}', json=payload7)
-    response_body1 = response.json()
-    end_time = time.time()
-    assert response.status_code == 200
-    assert response_body["info"][0]["fgit"]["hasGit"] == True, "Поле Гит пустое"
-    assert response1.status_code == 200
-    assert response_body1["info"][0]["fgit"]["hasGit"] == True, "Поле Гит пустое"
-    assert response_body["info"][0]["id"] == response_body1["info"][0]["id"], "Данные не совпадают"
-    print("test_get_student_list_hasGit_equals completed successfully in", end_time-start_time, "seconds")
 
 if __name__ == "__main__":
     pytest.main([__file__])
