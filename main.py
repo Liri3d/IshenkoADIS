@@ -68,6 +68,15 @@ payload6 = {
     }
 }
 
+payload7 = {
+    "version": "1.0",
+    "filter": {
+        "fgit": {
+            "hasGit": True
+        }
+    }
+}
+
 BASE_URL = 'http://192.168.0.16:8080/students/general/get-student-list'
 
 def test_get_student_list_hasGit_true():
@@ -79,6 +88,7 @@ def test_get_student_list_hasGit_true():
     for student in response_body["info"]:
         assert student["fgit"]["hasGit"] == True, "Поле Гит пустое"
     print("test_get_student_list_hasGit_true completed successfully in", end_time-start_time, "seconds")
+    print(end_time - start_time)
 
 def test_get_student_list_hasGit_false():
     start_time = time.time()
@@ -136,3 +146,9 @@ def test_get_student_list_hasGit_false_and_hasContact_true():
 
 if __name__ == "__main__":
     pytest.main([__file__])
+    test_get_student_list_hasGit_true()
+    test_get_student_list_hasGit_false()
+    test_get_student_list_hasGit_and_hasContact_true()
+    test_get_student_list_hasGit_and_hasContact_false()
+    test_get_student_list_hasGit_true_and_hasContact_false()
+    test_get_student_list_hasGit_false_and_hasContact_true()
